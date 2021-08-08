@@ -6,27 +6,23 @@ pipeline{
 
         stage ('Compile Stage') {
 
-            steps {
-
-                withMaven(maven: 'maven_3_8_1') {
-                    sh 'mvn clean install'
-
-                }
-
+            steps {                
+                    sh 'mvn clean compile'             
             }
         }
-    stage ('Test Stage') {
+        
+    	stage ('JUnit 5 Test Stage') {
 
-            steps {
-
-                withMaven(maven: 'maven_3_8_1') {
-                    sh 'mvn test'
-
-                }
-
+            steps {                
+                    sh 'mvn test'    
             }
         }
-
+        
+		stage('Maven Build') { 
+            steps {
+                sh "mvn package"
+            }
+        }
 
         stage ('Cucumber Reports') {
 
