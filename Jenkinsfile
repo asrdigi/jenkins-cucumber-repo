@@ -4,21 +4,21 @@ pipeline{
 
     stages {
 
-        stage ('Compile Stage') {
+        stage('Clean and Compile') { 
+            steps {
 
-            steps {                
-                    sh 'mvn clean compile'             
+                sh "mvn clean compile"
+            }
+        }
+       
+		stage('Junit5 Test') { 
+            steps {
+
+                sh "mvn test"
             }
         }
         
-    	stage ('JUnit 5 Test Stage') {
-
-            steps {                
-                    sh 'mvn test'    
-            }
-        }
-        
-		stage('Maven Build') { 
+        stage('Maven Build') { 
             steps {
                 sh "mvn package"
             }
