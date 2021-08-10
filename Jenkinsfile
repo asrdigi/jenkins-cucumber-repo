@@ -24,16 +24,20 @@ pipeline{
             }
         }
 
-        stage ('Cucumber Reports') {
-
-            steps {
-                cucumber buildStatus: "UNSTABLE",
-                    fileIncludePattern: "**/cucumber.json",
-                    jsonReportDirectory: 'target'
-
-            }
-
-        }
+        stage('Generate Cucumber report') {
+            steps{
+        			cucumber buildStatus: 'UNSTABLE',
+                		reportTitle: 'My Hello Cucumber Report',
+                		fileIncludePattern: '**/*.json',
+               			trendsLimit: 10,
+                		classifications: [
+                    		[
+                        		'key': 'Browser',
+                        		'value': 'Chrome'
+                    		]
+                		]
+                  }
+			}
 
     }
 
